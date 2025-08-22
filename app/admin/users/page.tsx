@@ -116,7 +116,7 @@ export default function AdminUsersPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -226,7 +226,7 @@ export default function AdminUsersPage() {
                                 displayName: e.target.value,
                               })
                             }
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
                           />
                         </div>
                         <div>
@@ -238,10 +238,13 @@ export default function AdminUsersPage() {
                             onChange={(e) =>
                               setEditForm({
                                 ...editForm,
-                                role: e.target.value as any,
+                                role: e.target.value as
+                                  | "admin"
+                                  | "manager"
+                                  | "employee",
                               })
                             }
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white bg-white dark:bg-gray-700 transition-colors"
                           >
                             <option value="employee">Employee</option>
                             <option value="manager">Manager</option>
@@ -261,7 +264,7 @@ export default function AdminUsersPage() {
                                 department: e.target.value,
                               })
                             }
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
                           />
                         </div>
                       </div>

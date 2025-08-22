@@ -29,29 +29,31 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <div className="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-blue-100">
-            <Building2 className="h-8 w-8 text-blue-600" />
+          <div className="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+            <Building2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+          <h2 className="mt-6 text-3xl font-bold text-gray-900 dark:text-white">
             Welcome to Evals
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Employee Evaluation System
           </p>
         </div>
 
         <div className="mt-8 space-y-6">
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-md p-4">
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
               <div className="flex">
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-red-800">
+                  <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
                     Authentication Error
                   </h3>
-                  <div className="mt-2 text-sm text-red-700">{error}</div>
+                  <div className="mt-2 text-sm text-red-700 dark:text-red-300">
+                    {error}
+                  </div>
                 </div>
               </div>
             </div>
@@ -93,7 +95,7 @@ export default function LoginPage() {
           </div>
 
           <div className="text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               By continuing, you agree to our terms of service and privacy
               policy
             </p>
@@ -101,11 +103,11 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-8 text-center">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-blue-800 mb-2">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <h3 className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
               How it works
             </h3>
-            <ul className="text-sm text-blue-700 space-y-1">
+            <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
               <li>• Sign in with your Google account</li>
               <li>• Access your evaluation dashboard</li>
               <li>• Complete assigned evaluations</li>
