@@ -120,4 +120,38 @@
       transform: rotate(360deg);
     }
   }
+
+  /* Interactive elements cursor styling */
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  /* Ensure all clickable elements have pointer cursor */
+  button:not(:disabled),
+  [role="button"],
+  .clickable,
+  [onClick],
+  [onclick] {
+    cursor: pointer;
+  }
+
+  /* Disabled buttons should show not-allowed cursor */
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Additional interactive elements */
+  .interactive,
+  .clickable,
+  .btn,
+  .button {
+    cursor: pointer;
+  }
+
+  /* Hover effects for better UX */
+  button:hover:not(:disabled),
+  .clickable:hover,
+  .interactive:hover {
+    cursor: pointer;
+  }
 }

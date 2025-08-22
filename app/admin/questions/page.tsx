@@ -119,7 +119,7 @@ export default function AdminQuestionsPage() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => router.push("/dashboard")}
-                className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors cursor-pointer"
               >
                 <ArrowLeft className="h-4 w-4" />
                 <span>Back to Dashboard</span>
@@ -130,7 +130,7 @@ export default function AdminQuestionsPage() {
             </div>
             <button
               onClick={() => setShowForm(true)}
-              className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
             >
               <Plus className="h-4 w-4" />
               <span>Add Question</span>
@@ -253,7 +253,7 @@ export default function AdminQuestionsPage() {
                 <div className="flex items-center space-x-4">
                   <button
                     type="submit"
-                    className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
                   >
                     <Save className="h-4 w-4 inline mr-2" />
                     {editingQuestion ? "Update Question" : "Save Question"}
@@ -261,7 +261,7 @@ export default function AdminQuestionsPage() {
                   <button
                     type="button"
                     onClick={handleCancel}
-                    className="px-6 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="px-6 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -320,13 +320,13 @@ export default function AdminQuestionsPage() {
                       <div className="flex items-center space-x-2">
                         <button
                           onClick={() => handleEdit(question)}
-                          className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                          className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
                         >
                           <Edit className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(question.id)}
-                          className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                          className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>

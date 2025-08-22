@@ -53,7 +53,7 @@ export default function SettingsPage() {
           <div className="flex items-center space-x-4 mb-8">
             <button
               onClick={() => router.push('/dashboard')}
-              className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+              className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Dashboard</span>
@@ -117,7 +117,7 @@ export default function SettingsPage() {
                           <button
                             key={option.value}
                             onClick={() => setTheme(option.value)}
-                            className={`relative p-4 rounded-lg border-2 transition-all duration-200 ${
+                            className={`relative p-4 rounded-lg border-2 transition-all duration-200 cursor-pointer ${
                               isSelected
                                 ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20'
                                 : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'

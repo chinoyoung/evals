@@ -130,7 +130,7 @@ export default function DashboardPage() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => router.push("/settings")}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
               >
                 <Settings className="h-5 w-5" />
                 <span>Settings</span>
@@ -138,7 +138,7 @@ export default function DashboardPage() {
 
               <button
                 onClick={() => setTheme(isDark ? "light" : "dark")}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
               >
                 {isDark ? (
                   <>
@@ -155,7 +155,7 @@ export default function DashboardPage() {
 
               <button
                 onClick={signOutUser}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
               >
                 <LogOut className="h-5 w-5" />
                 <span>Sign Out</span>
@@ -171,7 +171,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <button
                 onClick={() => router.push("/evaluations")}
-                className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left cursor-pointer"
               >
                 <div className="flex items-center space-x-3">
                   <div className="h-10 w-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
@@ -192,7 +192,7 @@ export default function DashboardPage() {
                 <>
                   <button
                     onClick={() => router.push("/admin/questions")}
-                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left cursor-pointer"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
@@ -211,7 +211,7 @@ export default function DashboardPage() {
 
                   <button
                     onClick={() => router.push("/admin/assignments")}
-                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left cursor-pointer"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
@@ -230,7 +230,7 @@ export default function DashboardPage() {
 
                   <button
                     onClick={() => router.push("/admin/evaluations")}
-                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left cursor-pointer"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center">
@@ -249,7 +249,7 @@ export default function DashboardPage() {
 
                   <button
                     onClick={() => router.push("/admin/users")}
-                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left cursor-pointer"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
@@ -268,7 +268,7 @@ export default function DashboardPage() {
 
                   <button
                     onClick={() => router.push("/admin/cleanup")}
-                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left cursor-pointer"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
@@ -396,7 +396,7 @@ export default function DashboardPage() {
                           onClick={() =>
                             router.push(`/evaluations/${evaluation.id}`)
                           }
-                          className="ml-4 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                          className="ml-4 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
                         >
                           View Details
                         </button>

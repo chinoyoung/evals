@@ -149,7 +149,7 @@ export default function AdminEvaluationsPage() {
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => router.push("/dashboard")}
-                  className="flex items-center space-x-2 text-gray-500 hover:text-gray-700 transition-colors"
+                  className="flex items-center space-x-2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back to Dashboard</span>
@@ -160,7 +160,7 @@ export default function AdminEvaluationsPage() {
               </div>
               <button
                 onClick={() => router.push("/admin/assignments")}
-                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
               >
                 <Users className="h-4 w-4" />
                 <span>Assign New</span>
