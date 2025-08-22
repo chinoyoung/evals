@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useRouter } from "next/navigation";
-import { userService, evaluationService } from "@/lib/firestore";
-import { User, Evaluation } from "@/types";
+import { userService, evaluationService, questionService, templateService } from "@/lib/firestore";
+import { User, Evaluation, Question, EvaluationTemplate } from "@/types";
 import {
   Clock,
   CheckCircle,
@@ -33,6 +33,9 @@ export default function DashboardPage() {
   const [completedEvaluations, setCompletedEvaluations] = useState<
     Evaluation[]
   >([]);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [templates, setTemplates] = useState<EvaluationTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const { setTheme, isDark } = useTheme();
 
@@ -47,13 +50,13 @@ export default function DashboardPage() {
         if (!profile) {
           // Only create a new profile if one doesn't exist
           console.log("Creating new user profile for:", currentUser.uid);
-          const newProfile: Omit<User, "createdAt"> = {
-            uid: currentUser.uid,
-            email: currentUser.email || "",
-            displayName: currentUser.displayName || "",
-            role: "employee", // Default role
-            department: "",
-          };
+                     const newProfile: Omit<User, "createdAt"> = {
+             uid: currentUser.uid,
+             email: currentUser.email || "",
+             displayName: currentUser.displayName || "",
+             role: "employee", // Default role
+             department: "Tech", // Default department
+           };
           await userService.createUser(newProfile);
           profile = await userService.getUser(currentUser.uid);
         } else {
@@ -76,6 +79,18 @@ export default function DashboardPage() {
 
         setPendingEvaluations(pending);
         setCompletedEvaluations(completed);
+
+        // Load additional data for admins
+        if (profile?.role === "admin") {
+          const [usersData, questionsData, templatesData] = await Promise.all([
+            userService.getAllUsers(),
+            questionService.getQuestions(),
+            templateService.getTemplates(),
+          ]);
+          setAllUsers(usersData);
+          setQuestions(questionsData);
+          setTemplates(templatesData);
+        }
       } catch (error) {
         console.error("Error loading dashboard data:", error);
       } finally {
@@ -284,6 +299,73 @@ export default function DashboardPage() {
                       </div>
                     </div>
                   </button>
+
+                                     {/* Quick Assignment Widget */}
+                   <div className="col-span-2 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+                     <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-3">
+                       Quick Evaluation Assignment
+                     </h3>
+                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                       <div className="text-sm">
+                         <p className="text-blue-700 dark:text-blue-300 font-medium">Total Users</p>
+                         <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{allUsers.length}</p>
+                       </div>
+                       <div className="text-sm">
+                         <p className="text-blue-700 dark:text-blue-300 font-medium">Available Templates</p>
+                         <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{templates.length}</p>
+                       </div>
+                       <div className="text-sm">
+                         <p className="text-blue-700 dark:text-blue-300 font-medium">Questions</p>
+                         <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{questions.length}</p>
+                       </div>
+                     </div>
+                     
+                     {/* Department Breakdown */}
+                     <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
+                       <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-2">Department Breakdown</p>
+                       <div className="grid grid-cols-2 gap-2 text-xs">
+                         <div className="flex justify-between">
+                           <span className="text-blue-700 dark:text-blue-300">Tech:</span>
+                           <span className="font-medium text-blue-900 dark:text-blue-100">
+                             {allUsers.filter(u => u.department === 'Tech').length}
+                           </span>
+                         </div>
+                         <div className="flex justify-between">
+                           <span className="text-blue-700 dark:text-blue-300">Content:</span>
+                           <span className="font-medium text-blue-900 dark:text-blue-100">
+                             {allUsers.filter(u => u.department === 'Content').length}
+                           </span>
+                         </div>
+                         <div className="flex justify-between">
+                           <span className="text-blue-700 dark:text-blue-300">Admin:</span>
+                           <span className="font-medium text-blue-900 dark:text-blue-100">
+                             {allUsers.filter(u => u.department === 'Admin').length}
+                           </span>
+                         </div>
+                         <div className="flex justify-between">
+                           <span className="text-blue-700 dark:text-blue-300">Sales:</span>
+                           <span className="font-medium text-blue-900 dark:text-blue-100">
+                             {allUsers.filter(u => u.department === 'Sales').length}
+                           </span>
+                         </div>
+                       </div>
+                     </div>
+                     
+                     <div className="mt-4 flex space-x-2">
+                       <button
+                         onClick={() => router.push("/admin/assignments")}
+                         className="px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                       >
+                         Assign Evaluations
+                       </button>
+                       <button
+                         onClick={() => router.push("/admin/users")}
+                         className="px-3 py-2 bg-blue-100 text-blue-700 text-sm rounded-lg hover:bg-blue-200 transition-colors"
+                       >
+                         Manage Users
+                       </button>
+                     </div>
+                   </div>
                 </>
               )}
             </div>

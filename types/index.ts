@@ -3,7 +3,7 @@ export interface User {
   email: string;
   displayName?: string;
   role: 'admin' | 'employee' | 'manager';
-  department?: string;
+  department: 'Tech' | 'Content' | 'Admin' | 'Sales';
   createdAt: Date;
 }
 
@@ -24,7 +24,7 @@ export interface Evaluation {
   description?: string;
   evaluatorId: string; // Who is doing the evaluation
   evaluateeId: string; // Who is being evaluated
-  type: 'peer' | 'manager_to_employee' | 'employee_to_manager';
+  type: 'peer' | 'manager_to_employee' | 'employee_to_manager' | 'admin_review' | 'admin_feedback' | 'cross_role' | 'self';
   status: 'pending' | 'in_progress' | 'completed' | 'overdue';
   dueDate: Date;
   assignedDate: Date;
@@ -33,6 +33,18 @@ export interface Evaluation {
   responses: Response[];
   createdAt: Date;
   createdBy: string;
+}
+
+export interface EvaluationAssignment {
+  id: string;
+  evaluatorId: string; // Who will be doing the evaluations
+  evaluateeIds: string[]; // Multiple people they need to evaluate
+  type: 'peer' | 'manager_to_employee' | 'employee_to_manager' | 'admin_review' | 'admin_feedback' | 'cross_role' | 'self';
+  dueDate: Date;
+  status: 'pending' | 'sent' | 'reminded';
+  sentDate?: Date;
+  reminderSentDate?: Date;
+  templateId?: string; // Optional template to use
 }
 
 export interface Response {
@@ -46,7 +58,7 @@ export interface EvaluationTemplate {
   name: string;
   description?: string;
   questions: Question[];
-  type: 'peer' | 'manager_to_employee' | 'employee_to_manager';
+  type: 'peer' | 'manager_to_employee' | 'employee_to_manager' | 'admin_review' | 'admin_feedback' | 'cross_role' | 'self';
   createdAt: Date;
   createdBy: string;
 }
