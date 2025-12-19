@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Evals - Employee Evaluation System",
-  description: "A comprehensive employee evaluation system for modern organizations",
+  description:
+    "A comprehensive employee evaluation system for modern organizations",
 };
 
 export default function RootLayout({
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
           <AuthProvider>{children}</AuthProvider>

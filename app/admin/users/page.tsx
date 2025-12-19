@@ -94,28 +94,28 @@ export default function AdminUsersPage() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case "admin":
-        return "bg-red-100 text-red-800";
+        return "bg-destructive/10 text-destructive";
       case "manager":
-        return "bg-blue-100 text-blue-800";
+        return "bg-primary/10 text-primary";
       case "employee":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-muted text-muted-foreground";
     }
   };
 
   const getDepartmentColor = (department: string) => {
     switch (department) {
       case "Tech":
-        return "bg-blue-100 text-blue-800";
+        return "bg-primary/10 text-primary";
       case "Content":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200";
       case "Admin":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-100 dark:bg-purple-900/20 text-purple-800 dark:text-purple-200";
       case "Sales":
-        return "bg-orange-100 text-orange-800";
+        return "bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-muted text-muted-foreground";
     }
   };
 
@@ -129,35 +129,44 @@ export default function AdminUsersPage() {
     const adminDept = users.filter((u) => u.department === "Admin").length;
     const sales = users.filter((u) => u.department === "Sales").length;
 
-    return { total, admins, managers, employees, tech, content, adminDept, sales };
+    return {
+      total,
+      admins,
+      managers,
+      employees,
+      tech,
+      content,
+      adminDept,
+      sales,
+    };
   };
 
   const stats = getStats();
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-background transition-colors duration-200">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-background transition-colors duration-200">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b border-gray-200">
+        <header className="bg-card shadow-sm border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => router.push("/dashboard")}
-                  className="flex items-center space-x-2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+                  className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back to Dashboard</span>
                 </button>
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-2xl font-bold text-foreground">
                   Manage Users
                 </h1>
               </div>
@@ -166,291 +175,325 @@ export default function AdminUsersPage() {
         </header>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                     {/* Stats Cards */}
-           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <Users className="h-8 w-8 text-blue-600" />
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">
-                     Total Users
-                   </p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.total}
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <Shield className="h-8 w-8 text-red-600" />
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">Admins</p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.admins}
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <UserCheck className="h-8 w-8 text-blue-600" />
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">Managers</p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.managers}
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <Users className="h-8 w-8 text-green-600" />
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">Employees</p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.employees}
-                   </p>
-                 </div>
-               </div>
-             </div>
-           </div>
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <Users className="h-8 w-8 text-primary" />
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Total Users
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.total}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <Shield className="h-8 w-8 text-destructive" />
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Admins
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.admins}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <UserCheck className="h-8 w-8 text-primary" />
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Managers
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.managers}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <Users className="h-8 w-8 text-green-600 dark:text-green-400" />
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Employees
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.employees}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-           {/* Department Stats */}
-           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <div className="h-8 w-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                   <span className="text-blue-600 font-bold text-sm">T</span>
-                 </div>
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">Tech</p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.tech}
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <div className="h-8 w-8 bg-green-100 rounded-lg flex items-center justify-center">
-                   <span className="text-green-600 font-bold text-sm">C</span>
-                 </div>
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">Content</p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.content}
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <div className="h-8 w-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                   <span className="text-purple-600 font-bold text-sm">A</span>
-                 </div>
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">Admin</p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.adminDept}
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div className="bg-white rounded-lg border border-gray-200 p-4">
-               <div className="flex items-center">
-                 <div className="h-8 w-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                   <span className="text-orange-600 font-bold text-sm">S</span>
-                 </div>
-                 <div className="ml-3">
-                   <p className="text-sm font-medium text-gray-500">Sales</p>
-                   <p className="text-2xl font-semibold text-gray-900">
-                     {stats.sales}
-                   </p>
-                 </div>
-               </div>
-             </div>
-           </div>
+          {/* Department Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <div className="h-8 w-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <span className="text-primary font-bold text-sm">T</span>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Tech
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.tech}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <div className="h-8 w-8 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
+                  <span className="text-green-600 dark:text-green-400 font-bold text-sm">
+                    C
+                  </span>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Content
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.content}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <div className="h-8 w-8 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center">
+                  <span className="text-purple-600 dark:text-purple-400 font-bold text-sm">
+                    A
+                  </span>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Admin
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.adminDept}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg border border-border p-4">
+              <div className="flex items-center">
+                <div className="h-8 w-8 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
+                  <span className="text-orange-600 dark:text-orange-400 font-bold text-sm">
+                    S
+                  </span>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Sales
+                  </p>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {stats.sales}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                     {/* Department Filter */}
-           <div className="mb-6 bg-white rounded-lg border border-gray-200 p-4">
-             <h3 className="text-lg font-medium text-gray-900 mb-3">
-               Filter by Department
-             </h3>
-             <div className="flex flex-wrap gap-2">
-               {['All', 'Tech', 'Content', 'Admin', 'Sales'].map((dept) => (
-                 <button
-                   key={dept}
-                   onClick={() => setDepartmentFilter(dept === 'All' ? null : dept)}
-                   className={`px-4 py-2 text-sm rounded-lg border transition-colors ${
-                     (dept === 'All' && !departmentFilter) || departmentFilter === dept
-                       ? 'bg-blue-100 border-blue-300 text-blue-700'
-                       : 'bg-gray-100 border-gray-300 text-gray-600 hover:bg-gray-200'
-                   }`}
-                 >
-                   {dept}
-                 </button>
-               ))}
-             </div>
-           </div>
-
-           {/* Users List */}
-           <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-             <div className="px-6 py-4 border-b border-gray-200">
-               <h3 className="text-lg font-medium text-gray-900">
-                 User Management
-               </h3>
-             </div>
-                         <div className="divide-y divide-gray-200">
-               {users
-                 .filter(user => !departmentFilter || user.department === departmentFilter)
-                 .map((user) => (
-                <div
-                  key={user.uid}
-                  className="p-6 hover:bg-gray-50 transition-colors"
+          {/* Department Filter */}
+          <div className="mb-6 bg-card rounded-lg border border-border p-4 shadow-sm">
+            <h3 className="text-lg font-medium text-foreground mb-3">
+              Filter by Department
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {["All", "Tech", "Content", "Admin", "Sales"].map((dept) => (
+                <button
+                  key={dept}
+                  onClick={() =>
+                    setDepartmentFilter(dept === "All" ? null : dept)
+                  }
+                  className={`px-4 py-2 text-sm rounded-lg border transition-colors ${
+                    (dept === "All" && !departmentFilter) ||
+                    departmentFilter === dept
+                      ? "bg-primary/10 border-primary/30 text-primary"
+                      : "bg-muted border-border text-muted-foreground hover:bg-muted/80"
+                  }`}
                 >
-                  {editingUser?.uid === user.uid ? (
-                    // Edit Form
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Display Name
-                          </label>
-                          <input
-                            type="text"
-                            value={editForm.displayName}
-                            onChange={(e) =>
-                              setEditForm({
-                                ...editForm,
-                                displayName: e.target.value,
-                              })
-                            }
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Role
-                          </label>
-                          <select
-                            value={editForm.role}
-                            onChange={(e) =>
-                              setEditForm({
-                                ...editForm,
-                                role: e.target.value as
-                                  | "admin"
-                                  | "manager"
-                                  | "employee",
-                              })
-                            }
-                            className="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white bg-white dark:bg-gray-700 transition-colors"
-                          >
-                            <option value="employee">Employee</option>
-                            <option value="manager">Manager</option>
-                            <option value="admin">Admin</option>
-                          </select>
-                        </div>
-                                                 <div>
-                           <label className="block text-sm font-medium text-gray-700 mb-2">
-                             Department
-                           </label>
-                           <select
-                             value={editForm.department}
-                             onChange={(e) =>
-                               setEditForm({
-                                 ...editForm,
-                                 department: e.target.value as "Tech" | "Content" | "Admin" | "Sales",
-                               })
-                             }
-                             className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                           >
-                             <option value="Tech">Tech</option>
-                             <option value="Content">Content</option>
-                             <option value="Admin">Admin</option>
-                             <option value="Sales">Sales</option>
-                           </select>
-                         </div>
-                      </div>
-                      <div className="flex justify-end space-x-3">
-                        <button
-                          onClick={cancelEdit}
-                          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-                        >
-                          <X className="h-4 w-4 inline mr-2" />
-                          Cancel
-                        </button>
-                        <button
-                          onClick={handleSave}
-                          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-                        >
-                          <Save className="h-4 w-4 inline mr-2" />
-                          Save Changes
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    // Display Mode
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                                                 <div className="flex items-center space-x-3 mb-2">
-                           <h4 className="text-lg font-medium text-gray-900">
-                             {user.displayName || "No Name Set"}
-                           </h4>
-                           <span
-                             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleColor(
-                               user.role
-                             )}`}
-                           >
-                             {getRoleDisplayName(user.role)}
-                           </span>
-                           <span
-                             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getDepartmentColor(
-                               user.department
-                             )}`}
-                           >
-                             {user.department}
-                           </span>
-                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-500">
-                          <div className="flex items-center space-x-2">
-                            <Mail className="h-4 w-4 text-gray-400" />
-                            <span>{user.email}</span>
+                  {dept}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Users List */}
+          <div className="bg-card rounded-lg border border-border overflow-hidden shadow-sm">
+            <div className="px-6 py-4 border-b border-border">
+              <h3 className="text-lg font-medium text-foreground">
+                User Management
+              </h3>
+            </div>
+            <div className="divide-y divide-border">
+              {users
+                .filter(
+                  (user) =>
+                    !departmentFilter || user.department === departmentFilter
+                )
+                .map((user) => (
+                  <div
+                    key={user.uid}
+                    className="p-6 hover:bg-muted/50 transition-colors"
+                  >
+                    {editingUser?.uid === user.uid ? (
+                      // Edit Form
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-muted-foreground mb-2">
+                              Display Name
+                            </label>
+                            <input
+                              type="text"
+                              value={editForm.displayName}
+                              onChange={(e) =>
+                                setEditForm({
+                                  ...editForm,
+                                  displayName: e.target.value,
+                                })
+                              }
+                              className="block w-full px-3 py-2 border border-input rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring text-foreground bg-card"
+                            />
                           </div>
-                          {user.department && (
-                            <div className="flex items-center space-x-2">
-                              <Users className="h-4 w-4 text-gray-400" />
-                              <span>{user.department}</span>
-                            </div>
-                          )}
-                          <div className="flex items-center space-x-2">
-                            <Calendar className="h-4 w-4 text-gray-400" />
-                            <span>
-                              Joined: {user.createdAt.toLocaleDateString()}
+                          <div>
+                            <label className="block text-sm font-medium text-muted-foreground mb-2">
+                              Role
+                            </label>
+                            <select
+                              value={editForm.role}
+                              onChange={(e) =>
+                                setEditForm({
+                                  ...editForm,
+                                  role: e.target.value as
+                                    | "admin"
+                                    | "manager"
+                                    | "employee",
+                                })
+                              }
+                              className="block w-full px-3 py-2 border border-input rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring text-foreground bg-card transition-colors"
+                            >
+                              <option value="employee">Employee</option>
+                              <option value="manager">Manager</option>
+                              <option value="admin">Admin</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-muted-foreground mb-2">
+                              Department
+                            </label>
+                            <select
+                              value={editForm.department}
+                              onChange={(e) =>
+                                setEditForm({
+                                  ...editForm,
+                                  department: e.target.value as
+                                    | "Tech"
+                                    | "Content"
+                                    | "Admin"
+                                    | "Sales",
+                                })
+                              }
+                              className="block w-full px-3 py-2 border border-input rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring text-foreground bg-card transition-colors"
+                            >
+                              <option value="Tech">Tech</option>
+                              <option value="Content">Content</option>
+                              <option value="Admin">Admin</option>
+                              <option value="Sales">Sales</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="flex justify-end space-x-3">
+                          <button
+                            onClick={cancelEdit}
+                            className="px-4 py-2 border border-border text-muted-foreground rounded-lg hover:bg-muted transition-colors cursor-pointer"
+                          >
+                            <X className="h-4 w-4 inline mr-2" />
+                            Cancel
+                          </button>
+                          <button
+                            onClick={handleSave}
+                            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:filter hover:brightness-90 transition-colors cursor-pointer"
+                          >
+                            <Save className="h-4 w-4 inline mr-2" />
+                            Save Changes
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      // Display Mode
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-3 mb-2">
+                            <h4 className="text-lg font-medium text-foreground">
+                              {user.displayName || "No Name Set"}
+                            </h4>
+                            <span
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleColor(
+                                user.role
+                              )}`}
+                            >
+                              {getRoleDisplayName(user.role)}
+                            </span>
+                            <span
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getDepartmentColor(
+                                user.department
+                              )}`}
+                            >
+                              {user.department}
                             </span>
                           </div>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-muted-foreground">
+                            <div className="flex items-center space-x-2">
+                              <Mail className="h-4 w-4 text-muted-foreground/60" />
+                              <span>{user.email}</span>
+                            </div>
+                            {user.department && (
+                              <div className="flex items-center space-x-2">
+                                <Users className="h-4 w-4 text-muted-foreground/60" />
+                                <span>{user.department}</span>
+                              </div>
+                            )}
+                            <div className="flex items-center space-x-2">
+                              <Calendar className="h-4 w-4 text-muted-foreground/60" />
+                              <span>
+                                Joined: {user.createdAt.toLocaleDateString()}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => handleEdit(user)}
+                            className="p-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                            title="Edit User"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() =>
+                              router.push(
+                                `/admin/assignments?evaluator=${user.uid}`
+                              )
+                            }
+                            className="p-2 text-muted-foreground hover:text-green-600 dark:hover:text-green-400 transition-colors cursor-pointer"
+                            title="Assign Evaluations To This Person"
+                          >
+                            <UserCheck className="h-4 w-4" />
+                          </button>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <button
-                          onClick={() => handleEdit(user)}
-                          className="p-2 text-gray-400 hover:text-blue-600 transition-colors cursor-pointer"
-                          title="Edit User"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={() => router.push(`/admin/assignments?evaluator=${user.uid}`)}
-                          className="p-2 text-gray-400 hover:text-green-600 transition-colors cursor-pointer"
-                          title="Assign Evaluations To This Person"
-                        >
-                          <UserCheck className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    )}
+                  </div>
+                ))}
             </div>
           </div>
         </div>

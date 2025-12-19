@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useRouter } from "next/navigation";
-import { userService, evaluationService, questionService, templateService } from "@/lib/firestore";
+import {
+  userService,
+  evaluationService,
+  questionService,
+  templateService,
+} from "@/lib/firestore";
 import { User, Evaluation, Question, EvaluationTemplate } from "@/types";
 import {
   Clock,
@@ -50,13 +55,13 @@ export default function DashboardPage() {
         if (!profile) {
           // Only create a new profile if one doesn't exist
           console.log("Creating new user profile for:", currentUser.uid);
-                     const newProfile: Omit<User, "createdAt"> = {
-             uid: currentUser.uid,
-             email: currentUser.email || "",
-             displayName: currentUser.displayName || "",
-             role: "employee", // Default role
-             department: "Tech", // Default department
-           };
+          const newProfile: Omit<User, "createdAt"> = {
+            uid: currentUser.uid,
+            email: currentUser.email || "",
+            displayName: currentUser.displayName || "",
+            role: "employee", // Default role
+            department: "Tech", // Default department
+          };
           await userService.createUser(newProfile);
           profile = await userService.getUser(currentUser.uid);
         } else {
@@ -112,8 +117,8 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-background transition-colors duration-200">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -124,20 +129,20 @@ export default function DashboardPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+      <div className="min-h-screen bg-background transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 py-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-4">
-              <div className="h-12 w-12 bg-blue-600 dark:bg-blue-500 rounded-lg flex items-center justify-center">
-                <Building2 className="h-8 w-8 text-white" />
+              <div className="h-12 w-12 bg-primary rounded-lg flex items-center justify-center">
+                <Building2 className="h-8 w-8 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-3xl font-bold text-foreground">
                   Welcome back, {userProfile?.displayName || userProfile?.email}
                   !
                 </h1>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-muted-foreground">
                   Here&apos;s what&apos;s happening with your evaluations
                 </p>
               </div>
@@ -300,72 +305,106 @@ export default function DashboardPage() {
                     </div>
                   </button>
 
-                                     {/* Quick Assignment Widget */}
-                   <div className="col-span-2 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                     <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-3">
-                       Quick Evaluation Assignment
-                     </h3>
-                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                       <div className="text-sm">
-                         <p className="text-blue-700 dark:text-blue-300 font-medium">Total Users</p>
-                         <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{allUsers.length}</p>
-                       </div>
-                       <div className="text-sm">
-                         <p className="text-blue-700 dark:text-blue-300 font-medium">Available Templates</p>
-                         <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{templates.length}</p>
-                       </div>
-                       <div className="text-sm">
-                         <p className="text-blue-700 dark:text-blue-300 font-medium">Questions</p>
-                         <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{questions.length}</p>
-                       </div>
-                     </div>
-                     
-                     {/* Department Breakdown */}
-                     <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
-                       <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-2">Department Breakdown</p>
-                       <div className="grid grid-cols-2 gap-2 text-xs">
-                         <div className="flex justify-between">
-                           <span className="text-blue-700 dark:text-blue-300">Tech:</span>
-                           <span className="font-medium text-blue-900 dark:text-blue-100">
-                             {allUsers.filter(u => u.department === 'Tech').length}
-                           </span>
-                         </div>
-                         <div className="flex justify-between">
-                           <span className="text-blue-700 dark:text-blue-300">Content:</span>
-                           <span className="font-medium text-blue-900 dark:text-blue-100">
-                             {allUsers.filter(u => u.department === 'Content').length}
-                           </span>
-                         </div>
-                         <div className="flex justify-between">
-                           <span className="text-blue-700 dark:text-blue-300">Admin:</span>
-                           <span className="font-medium text-blue-900 dark:text-blue-100">
-                             {allUsers.filter(u => u.department === 'Admin').length}
-                           </span>
-                         </div>
-                         <div className="flex justify-between">
-                           <span className="text-blue-700 dark:text-blue-300">Sales:</span>
-                           <span className="font-medium text-blue-900 dark:text-blue-100">
-                             {allUsers.filter(u => u.department === 'Sales').length}
-                           </span>
-                         </div>
-                       </div>
-                     </div>
-                     
-                     <div className="mt-4 flex space-x-2">
-                       <button
-                         onClick={() => router.push("/admin/assignments")}
-                         className="px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
-                       >
-                         Assign Evaluations
-                       </button>
-                       <button
-                         onClick={() => router.push("/admin/users")}
-                         className="px-3 py-2 bg-blue-100 text-blue-700 text-sm rounded-lg hover:bg-blue-200 transition-colors"
-                       >
-                         Manage Users
-                       </button>
-                     </div>
-                   </div>
+                  {/* Quick Assignment Widget */}
+                  <div className="col-span-2 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+                    <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-3">
+                      Quick Evaluation Assignment
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div className="text-sm">
+                        <p className="text-blue-700 dark:text-blue-300 font-medium">
+                          Total Users
+                        </p>
+                        <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                          {allUsers.length}
+                        </p>
+                      </div>
+                      <div className="text-sm">
+                        <p className="text-blue-700 dark:text-blue-300 font-medium">
+                          Available Templates
+                        </p>
+                        <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                          {templates.length}
+                        </p>
+                      </div>
+                      <div className="text-sm">
+                        <p className="text-blue-700 dark:text-blue-300 font-medium">
+                          Questions
+                        </p>
+                        <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                          {questions.length}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Department Breakdown */}
+                    <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
+                      <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-2">
+                        Department Breakdown
+                      </p>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="flex justify-between">
+                          <span className="text-blue-700 dark:text-blue-300">
+                            Tech:
+                          </span>
+                          <span className="font-medium text-blue-900 dark:text-blue-100">
+                            {
+                              allUsers.filter((u) => u.department === "Tech")
+                                .length
+                            }
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-blue-700 dark:text-blue-300">
+                            Content:
+                          </span>
+                          <span className="font-medium text-blue-900 dark:text-blue-100">
+                            {
+                              allUsers.filter((u) => u.department === "Content")
+                                .length
+                            }
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-blue-700 dark:text-blue-300">
+                            Admin:
+                          </span>
+                          <span className="font-medium text-blue-900 dark:text-blue-100">
+                            {
+                              allUsers.filter((u) => u.department === "Admin")
+                                .length
+                            }
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-blue-700 dark:text-blue-300">
+                            Sales:
+                          </span>
+                          <span className="font-medium text-blue-900 dark:text-blue-100">
+                            {
+                              allUsers.filter((u) => u.department === "Sales")
+                                .length
+                            }
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex space-x-2">
+                      <button
+                        onClick={() => router.push("/admin/assignments")}
+                        className="px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        Assign Evaluations
+                      </button>
+                      <button
+                        onClick={() => router.push("/admin/users")}
+                        className="px-3 py-2 bg-blue-100 text-blue-700 text-sm rounded-lg hover:bg-blue-200 transition-colors"
+                      >
+                        Manage Users
+                      </button>
+                    </div>
+                  </div>
                 </>
               )}
             </div>
