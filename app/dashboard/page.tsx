@@ -150,7 +150,7 @@ export default function DashboardPage() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => router.push("/settings")}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+                className="flex items-center space-x-2 px-4 py-2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               >
                 <Settings className="h-5 w-5" />
                 <span>Settings</span>
@@ -158,7 +158,7 @@ export default function DashboardPage() {
 
               <button
                 onClick={() => setTheme(isDark ? "light" : "dark")}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+                className="flex items-center space-x-2 px-4 py-2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               >
                 {isDark ? (
                   <>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
 
               <button
                 onClick={signOutUser}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+                className="flex items-center space-x-2 px-4 py-2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               >
                 <LogOut className="h-5 w-5" />
                 <span>Sign Out</span>
